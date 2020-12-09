@@ -128,6 +128,12 @@ class CarInterface(CarInterfaceBase):
       ret.enableCamera = True
       ret.radarOffCan = True
       ret.openpilotLongitudinalControl = False
+    elif candidate == CAR.ACCORD_2016:
+      ret.safetyModel = car.CarParams.SafetyModel.hondaBoschHarness
+      #ret.safetyModel = car.CarParams.SafetyModel.silent # silent until tom gets the giraff hookedup
+      ret.enableCamera = True
+      ret.radarOffCan = True
+      ret.openpilotLongitudinalControl = False
     else:
       ret.safetyModel = car.CarParams.SafetyModel.hondaNidec
       ret.enableCamera = True
@@ -192,7 +198,7 @@ class CarInterface(CarInterfaceBase):
       ret.longitudinalTuning.kiBP = [0., 35.]
       ret.longitudinalTuning.kiV = [0.18, 0.12]
 
-    elif candidate in (CAR.ACCORD, CAR.ACCORD_15, CAR.ACCORDH):
+    elif candidate in (CAR.ACCORD, CAR.ACCORD_15, CAR.ACCORDH, CAR.ACCORD_2016):
       stop_and_go = True
       if not candidate == CAR.ACCORDH:  # Hybrid uses same brake msg as hatch
         ret.safetyParam = 1  # Accord(ICE), CRV 5G, and RDX 3G use an alternate user brake msg
@@ -252,7 +258,7 @@ class CarInterface(CarInterfaceBase):
         # stock request output values:    0x0000, 0x0500, 0x0A15, 0x0E6D, 0x1100, 0x1200, 0x129A, 0x134D, 0x1400
         # modified request output values: 0x0000, 0x0500, 0x0A15, 0x0E6D, 0x1100, 0x1200, 0x1ACD, 0x239A, 0x2800
         ret.lateralParams.torqueBP, ret.lateralParams.torqueV = [[0, 2560, 10000], [0, 2560, 3840]]
-        ret.lateralTuning.pid.kpV, ret.lateralTuning.pid.kiV = [[0.21], [0.07]]
+        ret.lateralTuning.pid.kpV, ret.lateralTuning.pid.kiV = [[0.3], [0.1]]
       else:
         ret.lateralParams.torqueBP, ret.lateralParams.torqueV = [[0, 3840], [0, 3840]]
         ret.lateralTuning.pid.kpV, ret.lateralTuning.pid.kiV = [[0.64], [0.192]]
@@ -490,8 +496,8 @@ class CarInterface(CarInterfaceBase):
 
     # events
     events = self.create_common_events(ret, pcm_enable=False)
-    if self.CS.brake_error:
-      events.add(EventName.brakeUnavailable)
+ #   if self.CS.brake_error:
+ #     events.add(EventName.brakeUnavailable)
     if self.CS.brake_hold and self.CS.CP.openpilotLongitudinalControl:
       events.add(EventName.brakeHold)
     if self.CS.park_brake:
