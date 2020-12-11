@@ -22,7 +22,7 @@ def calc_cruise_offset(offset, speed):
 def get_can_signals(CP):
   # this function generates lists for signal, messages and initial values
   signals = [
-      ("XMISSION_SPEED", "POWERTRAIN_DATA_2", 0), #updated, "ENGINE_DATA" to "POWERTRAIN_DATA_2"
+      ("XMISSION_SPEED", "ENGINE_DATA", 0), #updated, "ENGINE_DATA" to "POWERTRAIN_DATA_2"- reverted
       ("WHEEL_SPEED_FL", "WHEEL_SPEEDS", 0), #good
       ("WHEEL_SPEED_FR", "WHEEL_SPEEDS", 0), #good
       ("WHEEL_SPEED_RL", "WHEEL_SPEEDS", 0), #good
@@ -50,13 +50,13 @@ def get_can_signals(CP):
   ]
 
   checks = [
-      # ("ENGINE_DATA", 100),
+      ("ENGINE_DATA", 100),
       ("WHEEL_SPEEDS", 50),
       ("STEERING_SENSORS", 100),
       ("SEATBELT_STATUS", 10),
       ("CRUISE", 10),
       ("POWERTRAIN_DATA", 100),
-      ("POWERTRAIN_DATA_2", 100),
+  #    ("POWERTRAIN_DATA_2", 100),
       ("VSA_STATUS", 50),
   ]
 
@@ -236,7 +236,7 @@ class CarState(CarStateBase):
 
     # blend in transmission speed at low speed, since it has more low speed accuracy
     v_weight = interp(v_wheel, v_weight_bp, v_weight_v)
-    ret.vEgoRaw = (1. - v_weight) * cp.vl["POWERTRAIN_DATA_2"]['XMISSION_SPEED'] * CV.KPH_TO_MS * speed_factor + v_weight * v_wheel
+    ret.vEgoRaw = (1. - v_weight) * cp.vl["ENGINE_DATA"]['XMISSION_SPEED'] * CV.KPH_TO_MS * speed_factor + v_weight * v_wheel
     ret.vEgo, ret.aEgo = self.update_speed_kf(ret.vEgoRaw)
 
     ret.steeringAngle = cp.vl["STEERING_SENSORS"]['STEER_ANGLE']
