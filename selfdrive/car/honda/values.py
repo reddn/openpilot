@@ -986,7 +986,7 @@ DBC = {
   CAR.ACCORD: dbc_dict('honda_accord_s2t_2018_can_generated', None),
   CAR.ACCORD_15: dbc_dict('honda_accord_lx15t_2018_can_generated', None),
   CAR.ACCORDH: dbc_dict('honda_accord_s2t_2018_can_generated', None),
-  CAR.ACCORD_2016: dbc_dict('honda_accord_touring_2016_can', 'acura_ilx_2016_nidec'),
+  CAR.ACCORD_2016: dbc_dict('honda_accord_2016_LKAS', 'acura_ilx_2016_nidec'),
   CAR.ACURA_ILX: dbc_dict('acura_ilx_2016_can_generated', 'acura_ilx_2016_nidec'),
   CAR.ACURA_RDX: dbc_dict('acura_rdx_2018_can_generated', 'acura_ilx_2016_nidec'),
   CAR.ACURA_RDX_3G: dbc_dict('acura_rdx_2020_can_generated', None),
