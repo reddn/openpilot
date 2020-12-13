@@ -159,7 +159,7 @@ def get_can_signals(CP):
     signals += [("MAIN_ON", "SCM_BUTTONS", 0),
                 ("EPB_STATE", "EPB_STATUS", 0)]
     checks += [("EPB_STATUS", 50)]
-   elif CP.carFingerprint == CAR.ACCORD_2016:
+  elif CP.carFingerprint == CAR.ACCORD_2016:
     signals += [("MAIN_ON", "SCM_BUTTONS", 0),
                 ("CAR_GAS", "GAS_PEDAL", 0)]
     checks += [("GAS_PEDAL", 100)]  
