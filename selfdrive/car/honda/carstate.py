@@ -56,7 +56,6 @@ def get_can_signals(CP):
       ("SEATBELT_STATUS", 10),
       ("CRUISE", 10),
       ("POWERTRAIN_DATA", 100),
-  #    ("POWERTRAIN_DATA_2", 100),
       ("VSA_STATUS", 50),
   ]
 
@@ -65,9 +64,13 @@ def get_can_signals(CP):
       ("SCM_FEEDBACK", 25),
       ("SCM_BUTTONS", 50),
     ]
+  elif CP.carFingerprint == CAR.ACCORD_2016:
+    checks += [
+      ("SCM_BUTTONS", 50),
+    ]
   else:
     checks += [
-      # ("SCM_FEEDBACK", 10),
+      ("SCM_FEEDBACK", 10),
       ("SCM_BUTTONS", 25),
     ]
 
@@ -106,10 +109,12 @@ def get_can_signals(CP):
                 ("CRUISE_SPEED_OFFSET", "CRUISE_PARAMS", 0)]
     checks += [("STANDSTILL", 50)]
 
-    if CP.carFingerprint == CAR.ODYSSEY_CHN:
+    if CP.carFingerprint == CAR.ODYSSEY_CHN or CAR.ACCORD_2016:
       checks += [("CRUISE_PARAMS", 10)]
     else:
       checks += [("CRUISE_PARAMS", 50)]
+      
+      
   if CP.carFingerprint in (CAR.ACCORD, CAR.ACCORD_15, CAR.ACCORDH, CAR.CIVIC_BOSCH, CAR.CIVIC_BOSCH_DIESEL, CAR.CRV_HYBRID, CAR.INSIGHT, CAR.ACURA_RDX_3G):
     signals += [("DRIVERS_DOOR_OPEN", "SCM_FEEDBACK", 1)]
   elif CP.carFingerprint == CAR.ODYSSEY_CHN:
@@ -133,7 +138,7 @@ def get_can_signals(CP):
   elif CP.carFingerprint == CAR.ACURA_ILX:
     signals += [("CAR_GAS", "GAS_PEDAL_2", 0),
                 ("MAIN_ON", "SCM_BUTTONS", 0)]
-  elif CP.carFingerprint in (CAR.CRV, CAR.CRV_EU, CAR.ACURA_RDX, CAR.PILOT_2019, CAR.RIDGELINE, CAR.ACCORD_2016):
+  elif CP.carFingerprint in (CAR.CRV, CAR.CRV_EU, CAR.ACURA_RDX, CAR.PILOT_2019, CAR.RIDGELINE):
     signals += [("MAIN_ON", "SCM_BUTTONS", 0)]
   elif CP.carFingerprint == CAR.FIT:
     signals += [("CAR_GAS", "GAS_PEDAL_2", 0),
@@ -143,7 +148,6 @@ def get_can_signals(CP):
     signals += [("CAR_GAS", "GAS_PEDAL", 0),
                 ("MAIN_ON", "SCM_BUTTONS", 0),
                 ("BRAKE_HOLD_ACTIVE", "VSA_STATUS", 0)]
-
   elif CP.carFingerprint == CAR.ODYSSEY:
     signals += [("MAIN_ON", "SCM_FEEDBACK", 0),
                 ("EPB_STATE", "EPB_STATUS", 0)]
@@ -155,6 +159,10 @@ def get_can_signals(CP):
     signals += [("MAIN_ON", "SCM_BUTTONS", 0),
                 ("EPB_STATE", "EPB_STATUS", 0)]
     checks += [("EPB_STATUS", 50)]
+   elif CP.carFingerprint == CAR.ACCORD_2016:
+    signals += [("MAIN_ON", "SCM_BUTTONS", 0),
+                ("CAR_GAS", "GAS_PEDAL", 0)]
+    checks += [("GAS_PEDAL", 100)]  
 
   # add gas interceptor reading if we are using it
   if CP.enableGasInterceptor:
@@ -379,9 +387,9 @@ class CarState(CarStateBase):
                   ("ICONS", "ACC_HUD", 0)]
 
     # all hondas except CRV, RDX and 2019 Odyssey@China use 0xe4 for steering
-    checks = [(0xe4, 100)]
+    #checks = [(0xe4, 100)] #ML NEEDS FIXING TO NOT CHECK ACCORD2016
     if CP.carFingerprint in [CAR.CRV, CAR.CRV_EU, CAR.ACURA_RDX, CAR.ODYSSEY_CHN]:
-      checks = [(0x194, 100)]
+      checks = [(0x194, 100)] #ML NEEDS FIXING TO NOT CHECK ACCORD2016
 
     return CANParser(DBC[CP.carFingerprint]['pt'], signals, checks, 2)
 
