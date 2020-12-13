@@ -391,7 +391,7 @@ class CarState(CarStateBase):
     if CP.carFingerprint in [CAR.CRV, CAR.CRV_EU, CAR.ACURA_RDX, CAR.ODYSSEY_CHN]:
       checks = [(0x194, 100)] 
       
-    if CP.carFingerprint == CAR.ACCORD2016:
+    if CP.carFingerprint == CAR.ACCORD_2016:
       checks = []
 
     return CANParser(DBC[CP.carFingerprint]['pt'], signals, checks, 2)
