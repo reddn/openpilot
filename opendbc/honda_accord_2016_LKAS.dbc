@@ -158,7 +158,7 @@ BO_ 506 BRAKE_COMMAND: 8 ADAS
  SG_ CRUISE_FAULT_CMD : 18|1@0+ (1,0) [0|1] "" EBCM
  SG_ CRUISE_CANCEL_CMD : 17|1@0+ (1,0) [0|1] "" EBCM
  SG_ COMPUTER_BRAKE_REQUEST : 16|1@0+ (1,0) [0|1] "" EBCM
- SG_ SET_ME_0X80 : 31|8@0+ (1,0) [0|1] "" EBCM
+ SG_ SET_ME_1 : 31|8@0+ (1,0) [0|1] "" EBCM
  SG_ AEB_REQ_1 : 29|1@0+ (1,0) [0|1] "" XXX
  SG_ AEB_REQ_2 : 26|3@0+ (1,0) [0|7] "" XXX
  SG_ BRAKE_LIGHTS : 39|1@0+ (1,0) [0|1] "" EBCM
@@ -168,6 +168,7 @@ BO_ 506 BRAKE_COMMAND: 8 ADAS
  SG_ FCW : 43|1@0+ (1,0) [0|3] "" EBCM
  SG_ ZEROS_BOH3 : 42|2@0+ (1,0) [0|0] "" EBCM
  SG_ FCW2 : 40|1@0+ (1,0) [0|0] "" EBCM
+ SG_ AEB_STATUS : 41|2@0+ (1,0) [0|3] "" XXX
  SG_ ZEROS_BOH4 : 55|8@0+ (1,0) [0|0] "" EBCM
  SG_ COUNTER : 61|2@0+ (1,0) [0|3] "" EBCM
  SG_ CHECKSUM : 59|4@0+ (1,0) [0|15] "" EBCM
@@ -250,6 +251,10 @@ BO_ 780 ACC_HUD: 8 ADAS
  SG_ BOH_4 : 42|1@0+ (1,0) [0|3] "" BDY
  SG_ BOH_5 : 41|1@0+ (1,0) [0|3] "" BDY
  SG_ CRUISE_CONTROL_LABEL : 40|1@0+ (1,0) [0|3] "" BDY
+ SG_ SET_ME_X01_2 : 55|1@0+ (1,0) [0|1] "" BDY
+ SG_ CHIME : 51|3@0+ (1,0) [0|1] "" BDY
+ SG_ IMPERIAL_UNIT : 54|1@0+ (1,0) [0|1] "" BDY
+ SG_ SET_ME_X01 : 48|1@0+ (1,0) [0|1] "" BDY
  SG_ ICONS : 63|2@0+ (1,0) [0|1] "" BDY
  SG_ COUNTER : 61|2@0+ (1,0) [0|3] "" BDY
  SG_ CHECKSUM : 59|4@0+ (1,0) [0|15] "" BDY
@@ -274,6 +279,7 @@ BO_ 808 XXX_13: 8 XXX
 
 BO_ 829 LKAS_HUD: 5 ADAS
  SG_ CAM_TEMP_HIGH : 7|1@0+ (1,0) [0|255] "" BDY
+ SG_ SET_ME_X41 : 6|7@0+ (1,0) [0|127] "" BDY
  SG_ BOH : 23|2@0+ (1,0) [0|4] "" BDY
  SG_ DASHED_LANES : 14|1@0+ (1,0) [0|1] "" BDY
  SG_ DTC : 13|1@0+ (1,0) [0|1] "" BDY
@@ -287,6 +293,7 @@ BO_ 829 LKAS_HUD: 5 ADAS
  SG_ LDW_ON : 28|1@0+ (1,0) [0|1] "" BDY
  SG_ LDW_OFF : 27|1@0+ (1,0) [0|1] "" BDY
  SG_ CLEAN_WINDSHIELD : 26|1@0+ (1,0) [0|1] "" BDY
+ SG_ SET_ME_X48 : 31|8@0+ (1,0) [0|255] "" BDY
  SG_ COUNTER : 37|2@0+ (1,0) [0|3] "" BDY
  SG_ CHECKSUM : 35|4@0+ (1,0) [0|15] "" BDY
 
