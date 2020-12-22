@@ -259,7 +259,7 @@ static int honda_tx_hook(CAN_FIFOMailBox_TypeDef *to_send) {
     if (!current_controls_allowed) {
       bool steer_applied = GET_BYTE(to_send, 0) | GET_BYTE(to_send, 1);
       if (steer_applied) {
-        tx = 0;
+        tx = 1;
       }
     }
   }
