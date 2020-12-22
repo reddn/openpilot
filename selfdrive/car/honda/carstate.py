@@ -29,8 +29,8 @@ def get_can_signals(CP):
       ("WHEEL_SPEED_RR", "WHEEL_SPEEDS", 0), #good
       ("STEER_ANGLE", "STEERING_SENSORS", 0), #good
       ("STEER_ANGLE_RATE", "STEERING_SENSORS", 0), #good
-      # ("MOTOR_TORQUE", "STEER_MOTOR_TORQUE", 0), #already commented out
-      # ("STEER_TORQUE_SENSOR", "STEER_STATUS", 0), #already commented out
+      ("MOTOR_TORQUE", "STEER_MOTOR_TORQUE", 0), #already commented out
+      ("STEER_TORQUE_SENSOR", "STEER_STATUS", 0), #already commented out
       ("LEFT_BLINKER", "SCM_COMMANDS", 0),  #good
       ("RIGHT_BLINKER", "SCM_COMMANDS", 0), #good
       ("GEAR", "GEARBOX", 0), #good
@@ -215,12 +215,13 @@ class CarState(CarStateBase):
     ret.seatbeltUnlatched = bool(cp.vl["SEATBELT_STATUS"]['SEATBELT_DRIVER_LAMP'] or not cp.vl["SEATBELT_STATUS"]['SEATBELT_DRIVER_LATCHED'])
 
     if self.CP.carFingerprint == CAR.ACCORD_2016:
-      steer_status = 1
-      ret.steerError = False
-      self.steer_not_allowed = False
-      ret.steerWarning = False
-      self.break_error = 0
-      ret.espDisabled = False
+      steer_status = self.steer_status_values[cp.vl["STEER_STATUS"]['STEER_STATUS']]
+      ret.steerError = steer_status not in ['NORMAL', 'NO_TORQUE_ALERT_1', 'NO_TORQUE_ALERT_2', 'LOW_SPEED_LOCKOUT', 'TMP_FAULT']
+      self.steer_not_allowed = steer_status not in ['NORMAL', 'NO_TORQUE_ALERT_2']
+      ret.steerWarning = steer_status not in ['NORMAL', 'LOW_SPEED_LOCKOUT', 'NO_TORQUE_ALERT_2']
+      self.brake_error = 0
+      if not self.CP.openpilotLongitudinalControl:
+        self.brake_error = 0
     else:
       steer_status = self.steer_status_values[cp.vl["STEER_STATUS"]['STEER_STATUS']]
       ret.steerError = steer_status not in ['NORMAL', 'NO_TORQUE_ALERT_1', 'NO_TORQUE_ALERT_2', 'LOW_SPEED_LOCKOUT', 'TMP_FAULT']
