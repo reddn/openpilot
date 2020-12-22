@@ -178,7 +178,7 @@ class CarState(CarStateBase):
     super().__init__(CP)
     can_define = CANDefine(DBC[CP.carFingerprint]['pt'])
     # self.shifter_values = can_define.dv["GEARBOX"]["GEAR_SHIFTER"]
-    self.steer_status_values = defaultdict(lambda: "UNKNOWN", can_define.dv["STEER_STATUS"]["STEER_STATUS"])
+    #self.steer_status_values = defaultdict(lambda: "UNKNOWN", can_define.dv["STEER_STATUS"]["STEER_STATUS"])
 
     self.user_gas, self.user_gas_pressed = 0., 0
     self.brake_switch_prev = 0
@@ -215,13 +215,12 @@ class CarState(CarStateBase):
     ret.seatbeltUnlatched = bool(cp.vl["SEATBELT_STATUS"]['SEATBELT_DRIVER_LAMP'] or not cp.vl["SEATBELT_STATUS"]['SEATBELT_DRIVER_LATCHED'])
 
     if self.CP.carFingerprint == CAR.ACCORD_2016:
-      steer_status = self.steer_status_values[cp.vl["STEER_STATUS"]['STEER_STATUS']]
-      ret.steerError = steer_status not in ['NORMAL', 'NO_TORQUE_ALERT_1', 'NO_TORQUE_ALERT_2', 'LOW_SPEED_LOCKOUT', 'TMP_FAULT']
-      self.steer_not_allowed = steer_status not in ['NORMAL', 'NO_TORQUE_ALERT_2']
-      ret.steerWarning = steer_status not in ['NORMAL', 'LOW_SPEED_LOCKOUT', 'NO_TORQUE_ALERT_2']
+      steer_status = 1
+      ret.steerError = False
+      self.steer_not_allowed = False
+      ret.steerWarning = False
       self.brake_error = 0
-      if not self.CP.openpilotLongitudinalControl:
-        self.brake_error = 0
+      ret.espDisabled = False
     else:
       steer_status = self.steer_status_values[cp.vl["STEER_STATUS"]['STEER_STATUS']]
       ret.steerError = steer_status not in ['NORMAL', 'NO_TORQUE_ALERT_1', 'NO_TORQUE_ALERT_2', 'LOW_SPEED_LOCKOUT', 'TMP_FAULT']
