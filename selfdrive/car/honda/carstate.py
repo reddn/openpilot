@@ -42,7 +42,7 @@ def get_can_signals(CP):
       ("ESP_DISABLED", "VSA_STATUS", 1), #good
       ("USER_BRAKE", "VSA_STATUS", 0), #good
       # ("BRAKE_HOLD_ACTIVE", "VSA_STATUS", 0), #already commented out
-      # ("STEER_STATUS", "STEER_STATUS", 5), #already commented out
+      ("STEER_STATUS", "STEER_STATUS", 5), #already commented out
       ("GEAR_SHIFTER", "GEARBOX", 0), #good
       ("PEDAL_GAS", "POWERTRAIN_DATA", 0), #good
       ("CRUISE_SETTING", "SCM_BUTTONS", 0), #good
@@ -293,14 +293,13 @@ class CarState(CarStateBase):
       ret.gasPressed = self.pedal_gas > 1e-5
 
     if self.CP.carFingerprint == CAR.ACCORD_2016:
-      ret.steeringTorque = 0
-      ret.steeringTorqueEps = 0
       ret.steeringPressed = False
     else:
-      ret.steeringTorque = cp.vl["STEER_STATUS"]['STEER_TORQUE_SENSOR']
-      ret.steeringTorqueEps = cp.vl["STEER_MOTOR_TORQUE"]['MOTOR_TORQUE']
       ret.steeringPressed = abs(ret.steeringTorque) > STEER_THRESHOLD[self.CP.carFingerprint]
-
+    
+    ret.steeringTorque = cp.vl["STEER_STATUS"]['STEER_TORQUE_SENSOR']
+    ret.steeringTorqueEps = cp.vl["STEER_MOTOR_TORQUE"]['MOTOR_TORQUE']
+    
     self.brake_switch = cp.vl["POWERTRAIN_DATA"]['BRAKE_SWITCH'] != 0
 
     if self.CP.carFingerprint in HONDA_BOSCH:
