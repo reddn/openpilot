@@ -177,7 +177,7 @@ static int honda_rx_hook(CAN_FIFOMailBox_TypeDef *to_push) {
 
 // all commands: gas, brake and steering
 // if controls_allowed and no pedals pressed
-//     allow all commands up to limit
+//     allow all commands up to limit	
 // else
 //     block all commands that produce actuation
 
