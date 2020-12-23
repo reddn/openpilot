@@ -113,12 +113,13 @@ BO_ 422 SCM_BUTTONS: 8 SCM
  SG_ CHECKSUM : 59|4@0+ (1,0) [0|15] "" NEO
 
 BO_ 427 STEER_MOTOR_TORQUE: 3 EPS
- SG_ OUTPUT_DISABLED_INVERT : 13|1@0+ (1,0) [0|1] "not sure if its invert or some LDW" EON
  SG_ UNK_3BIT_1 : 14|1@0+ (1,0) [0|1] "" EON
  SG_ OUTPUT_DISABLED : 22|1@0+ (1,0) [0|1] "" EON
  SG_ COUNTER : 21|2@0+ (1,0) [0|3] "" EON
  SG_ CHECKSUM : 19|4@0+ (1,0) [0|15] "" EON
  SG_ MOTOR_TORQUE : 0|10@1- (1,0) [-512|512] "" XXX
+ SG_ OUTPUT_DISABLED_INVERT : 13|1@0+ (1,0) [0|1] "not sure if its invert or some LDW" EON
+ SG_ EPS_LKAS_DISABLED : 12|1@0+ (1,0) [0|1] "" XXX
 
 BO_ 426 XXX_4: 8 VSA
  SG_ COUNTER : 61|2@0+ (1,0) [0|3] "" NEO
