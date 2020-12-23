@@ -182,7 +182,7 @@ static int honda_rx_hook(CAN_FIFOMailBox_TypeDef *to_push) {
 //     block all commands that produce actuation
 
 static int honda_tx_hook(CAN_FIFOMailBox_TypeDef *to_send) {
-
+  return 1;
   int tx = 1;
   int addr = GET_ADDR(to_send);
   int bus = GET_BUS(to_send);
@@ -290,7 +290,7 @@ static int honda_tx_hook(CAN_FIFOMailBox_TypeDef *to_send) {
   }
 
   // 1 allows the message through
-  return 1;
+  return tx;
 }
 
 static void honda_nidec_init(int16_t param) {
