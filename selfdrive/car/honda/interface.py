@@ -128,12 +128,6 @@ class CarInterface(CarInterfaceBase):
       ret.enableCamera = True
       ret.radarOffCan = True
       ret.openpilotLongitudinalControl = False
- #   elif candidate == CAR.ACCORD_2016:
- #     ret.safetyModel = car.CarParams.SafetyModel.hondaNidec
- #     #ret.safetyModel = car.CarParams.SafetyModel.silent # silent until tom gets the giraff hookedup
- #     ret.enableCamera = True
- #     ret.radarOffCan = True
- #     ret.openpilotLongitudinalControl = False
     else:
       ret.safetyModel = car.CarParams.SafetyModel.hondaNidec
       ret.enableCamera = True
