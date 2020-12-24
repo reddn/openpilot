@@ -41,7 +41,7 @@ def get_can_signals(CP):
       ("CRUISE_BUTTONS", "SCM_BUTTONS", 0), #good
       ("ESP_DISABLED", "VSA_STATUS", 1), #good
       ("USER_BRAKE", "VSA_STATUS", 0), #good
-      # ("BRAKE_HOLD_ACTIVE", "VSA_STATUS", 0), #already commented out
+      ("BRAKE_HOLD_ACTIVE", "VSA_STATUS", 0), #already commented out
       ("STEER_STATUS", "STEER_STATUS", 5), #already commented out
       ("GEAR_SHIFTER", "GEARBOX", 0), #good
       ("PEDAL_GAS", "POWERTRAIN_DATA", 0), #good
@@ -82,8 +82,6 @@ def get_can_signals(CP):
     checks += [
       ("GEARBOX", 100),
     ]
-
-  # if CP.carFingerprint == CAR.ACCORD_2016:
 
 
   if CP.carFingerprint in HONDA_BOSCH:
@@ -255,7 +253,7 @@ class CarState(CarStateBase):
 
     ret.leftBlinker = cp.vl["SCM_COMMANDS"]['LEFT_BLINKER'] != 0
     ret.rightBlinker = cp.vl["SCM_COMMANDS"]['RIGHT_BLINKER'] != 0
-    self.brake_hold = 0 #cp.vl["VSA_STATUS"]['BRAKE_HOLD_ACTIVE']
+    self.brake_hold = cp.vl["VSA_STATUS"]['BRAKE_HOLD_ACTIVE']
 
     if self.CP.carFingerprint in (CAR.CIVIC, CAR.ODYSSEY, CAR.CRV_5G, CAR.ACCORD, CAR.ACCORD_15, CAR.ACCORDH, CAR.CIVIC_BOSCH,
                                   CAR.CIVIC_BOSCH_DIESEL, CAR.CRV_HYBRID, CAR.INSIGHT, CAR.ACURA_RDX_3G):
@@ -292,14 +290,10 @@ class CarState(CarStateBase):
     else:
       ret.gasPressed = self.pedal_gas > 1e-5
 
-    if self.CP.carFingerprint == CAR.ACCORD_2016:
-      ret.steeringPressed = False
-    else:
-      ret.steeringPressed = abs(ret.steeringTorque) > STEER_THRESHOLD[self.CP.carFingerprint]
-    
     ret.steeringTorque = cp.vl["STEER_STATUS"]['STEER_TORQUE_SENSOR']
     ret.steeringTorqueEps = cp.vl["STEER_MOTOR_TORQUE"]['MOTOR_TORQUE']
-    
+    ret.steeringPressed = abs(ret.steeringTorque) > STEER_THRESHOLD[self.CP.carFingerprint]
+
     self.brake_switch = cp.vl["POWERTRAIN_DATA"]['BRAKE_SWITCH'] != 0
 
     if self.CP.carFingerprint in HONDA_BOSCH:
@@ -389,9 +383,6 @@ class CarState(CarStateBase):
     checks = [(0xe4, 100)] 
     if CP.carFingerprint in [CAR.CRV, CAR.CRV_EU, CAR.ACURA_RDX, CAR.ODYSSEY_CHN]:
       checks = [(0x194, 100)] 
-      
-    if CP.carFingerprint == CAR.ACCORD_2016:
-      checks = []
 
     return CANParser(DBC[CP.carFingerprint]['pt'], signals, checks, 2)
 
