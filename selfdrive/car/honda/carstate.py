@@ -291,7 +291,10 @@ class CarState(CarStateBase):
     ret.steeringTorque = cp.vl["STEER_STATUS"]['STEER_TORQUE_SENSOR']
     ret.steeringTorqueEps = cp.vl["STEER_MOTOR_TORQUE"]['MOTOR_TORQUE']
     ret.steeringPressed = abs(ret.steeringTorque) > STEER_THRESHOLD[self.CP.carFingerprint]
-
+    
+    if self.CP.carFingerprint == ACCORD_2016 and abs(ret.steeringTorque) > 95
+        steer_not_allowed = True
+        
     self.brake_switch = cp.vl["POWERTRAIN_DATA"]['BRAKE_SWITCH'] != 0
 
     if self.CP.carFingerprint in HONDA_BOSCH:
