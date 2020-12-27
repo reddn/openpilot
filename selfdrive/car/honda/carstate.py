@@ -22,31 +22,31 @@ def calc_cruise_offset(offset, speed):
 def get_can_signals(CP):
   # this function generates lists for signal, messages and initial values
   signals = [
-      ("XMISSION_SPEED", "ENGINE_DATA", 0), #updated, "ENGINE_DATA" to "POWERTRAIN_DATA_2"- reverted
-      ("WHEEL_SPEED_FL", "WHEEL_SPEEDS", 0), #good
-      ("WHEEL_SPEED_FR", "WHEEL_SPEEDS", 0), #good
-      ("WHEEL_SPEED_RL", "WHEEL_SPEEDS", 0), #good
-      ("WHEEL_SPEED_RR", "WHEEL_SPEEDS", 0), #good
-      ("STEER_ANGLE", "STEERING_SENSORS", 0), #good
-      ("STEER_ANGLE_RATE", "STEERING_SENSORS", 0), #good
-      ("MOTOR_TORQUE", "STEER_MOTOR_TORQUE", 0), #already commented out
-      ("STEER_TORQUE_SENSOR", "STEER_STATUS", 0), #already commented out
-      ("LEFT_BLINKER", "SCM_COMMANDS", 0),  #good
-      ("RIGHT_BLINKER", "SCM_COMMANDS", 0), #good
-      ("GEAR", "GEARBOX", 0), #good
-      ("SEATBELT_DRIVER_LAMP", "SEATBELT_STATUS", 1), #good
-      ("SEATBELT_DRIVER_LATCHED", "SEATBELT_STATUS", 0), #good
-      ("BRAKE_PRESSED", "POWERTRAIN_DATA", 0), #good
-      ("BRAKE_SWITCH", "POWERTRAIN_DATA", 0), #good
-      ("CRUISE_BUTTONS", "SCM_BUTTONS", 0), #good
-      ("ESP_DISABLED", "VSA_STATUS", 1), #good
-      ("USER_BRAKE", "VSA_STATUS", 0), #good
-      ("BRAKE_HOLD_ACTIVE", "VSA_STATUS", 0), #already commented out
-      ("STEER_STATUS", "STEER_STATUS", 5), #already commented out
-      ("GEAR_SHIFTER", "GEARBOX", 0), #good
-      ("PEDAL_GAS", "POWERTRAIN_DATA", 0), #good
-      ("CRUISE_SETTING", "SCM_BUTTONS", 0), #good
-      ("ACC_STATUS", "POWERTRAIN_DATA", 0), #already commented out
+      ("XMISSION_SPEED", "ENGINE_DATA", 0),
+      ("WHEEL_SPEED_FL", "WHEEL_SPEEDS", 0),
+      ("WHEEL_SPEED_FR", "WHEEL_SPEEDS", 0),
+      ("WHEEL_SPEED_RL", "WHEEL_SPEEDS", 0), 
+      ("WHEEL_SPEED_RR", "WHEEL_SPEEDS", 0), 
+      ("STEER_ANGLE", "STEERING_SENSORS", 0), 
+      ("STEER_ANGLE_RATE", "STEERING_SENSORS", 0), 
+      ("MOTOR_TORQUE", "STEER_MOTOR_TORQUE", 0), 
+      ("STEER_TORQUE_SENSOR", "STEER_STATUS", 0),
+      ("LEFT_BLINKER", "SCM_COMMANDS", 0),  
+      ("RIGHT_BLINKER", "SCM_COMMANDS", 0), 
+      ("GEAR", "GEARBOX", 0), 
+      ("SEATBELT_DRIVER_LAMP", "SEATBELT_STATUS", 1), 
+      ("SEATBELT_DRIVER_LATCHED", "SEATBELT_STATUS", 0), 
+      ("BRAKE_PRESSED", "POWERTRAIN_DATA", 0), 
+      ("BRAKE_SWITCH", "POWERTRAIN_DATA", 0), 
+      ("CRUISE_BUTTONS", "SCM_BUTTONS", 0), 
+      ("ESP_DISABLED", "VSA_STATUS", 1), 
+      ("USER_BRAKE", "VSA_STATUS", 0), 
+      ("BRAKE_HOLD_ACTIVE", "VSA_STATUS", 0),
+      ("STEER_STATUS", "STEER_STATUS", 5), 
+      ("GEAR_SHIFTER", "GEARBOX", 0),
+      ("PEDAL_GAS", "POWERTRAIN_DATA", 0),
+      ("CRUISE_SETTING", "SCM_BUTTONS", 0),
+      ("ACC_STATUS", "POWERTRAIN_DATA", 0),
   ]
 
   checks = [
@@ -274,10 +274,8 @@ class CarState(CarStateBase):
 
     self.pedal_gas = cp.vl["POWERTRAIN_DATA"]['PEDAL_GAS']
     # crv doesn't include cruise control
-    if self.CP.carFingerprint in (CAR.CRV, CAR.CRV_EU, CAR.HRV, CAR.ODYSSEY, CAR.ACURA_RDX, CAR.RIDGELINE, CAR.PILOT_2019, CAR.ODYSSEY_CHN):
+    if self.CP.carFingerprint in (CAR.CRV, CAR.CRV_EU, CAR.HRV, CAR.ODYSSEY, CAR.ACURA_RDX, CAR.RIDGELINE, CAR.PILOT_2019, CAR.ODYSSEY_CHN, CAR.ACCORD_2016):
       ret.gas = self.pedal_gas / 256.
-    elif self.CP.carFingerprint == CAR.ACCORD_2016:
-      ret.gas = self.pedal_gas # this maybe wrong ***TOM
     else:
       ret.gas = cp.vl["GAS_PEDAL_2"]['CAR_GAS'] / 256.
 
