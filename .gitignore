@@ -47,6 +47,8 @@ selfdrive/sensord/_sensord
 selfdrive/camerad/camerad
 selfdrive/modeld/_modeld
 selfdrive/modeld/_dmonitoringmodeld
+selfdrive/locationd/models/generated
+opendbc/can/libdbc.so
 /src/
 
 one
