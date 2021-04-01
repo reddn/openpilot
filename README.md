@@ -112,7 +112,7 @@ Supported Cars
 | Toyota    | Highlander 2020-21            | All               | openpilot        | 0mph               | 0mph              |
 | Toyota    | Highlander Hybrid 2017-19     | All               | Stock<sup>3</sup>| 0mph               | 0mph              |
 | Toyota    | Highlander Hybrid 2020-21     | All               | openpilot        | 0mph               | 0mph              |
-| Toyota    | Mirai 2021	                  | All               | openpilot        | 0mph               | 0mph              |
+| Toyota    | Mirai 2021	            | All               | openpilot        | 0mph               | 0mph              |
 | Toyota    | Prius 2016-20                 | TSS-P             | Stock<sup>3</sup>| 0mph               | 0mph              |
 | Toyota    | Prius 2021                    | All               | openpilot        | 0mph               | 0mph              |
 | Toyota    | Prius Prime 2017-20           | All               | Stock<sup>3</sup>| 0mph               | 0mph              |
@@ -194,6 +194,8 @@ Community Maintained Cars and Features
 <sup>2</sup>Only includes the MQB Passat sold outside of North America. The NMS Passat made in Chattanooga TN is not yet supported.
 
 Although it's not upstream, there's a community of people getting openpilot to run on Tesla's [here](https://tinkla.us/)
+
+There are some Honda/Acura with Honda Sensing/AcuraWatch Plus that are not currently supported use a dedicated serial data lines for its steering control messages.  These cars can with work with openpilot using additional hardware with minor software modifications.  A Community Maintained upstream is planned.  The current list of 'serial steering' cars is the 2016/2017 Accord, 15-20 Acura MDX, and 15-20 Acura TLX.  Join the #topic-serial-steering channel on discord with questions.  
 
 Community Maintained Cars and Features are not verified by comma to meet our [safety model](SAFETY.md). Be extra cautious using them. They are only available after enabling the toggle in `Settings->Developer->Enable Community Features`.
 
